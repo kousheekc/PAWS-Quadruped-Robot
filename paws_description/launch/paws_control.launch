@@ -1,0 +1,28 @@
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find paws_description)/config/paws_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/paws" args="joint_state_controller
+                                  lf_j1_position_controller
+                                  lf_j2_position_controller
+                                  lf_j3_position_controller
+                                  rf_j1_position_controller
+                                  rf_j2_position_controller
+                                  rf_j3_position_controller
+                                  lh_j1_position_controller
+                                  lh_j2_position_controller
+                                  lh_j3_position_controller
+                                  rh_j1_position_controller
+                                  rh_j2_position_controller
+                                  rh_j3_position_controller"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+	  respawn="false" output="screen">
+    <remap from="/joint_states" to="/paws/joint_states" />
+  </node>
+
+</launch>

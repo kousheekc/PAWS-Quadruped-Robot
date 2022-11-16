@@ -1,0 +1,9 @@
+<launch>
+  <!-- <include file="$(find paws_description)/launch/paws_gazebo.launch"/> -->
+  <include file="$(find paws_description)/launch/paws_rviz.launch"/>
+
+  <!-- <node name="motor_control_gazebo_node" pkg="paws_motor_control" type="motor_control_gazebo.py" output="screen" /> -->
+  <node name="motor_control_rviz_node" pkg="paws_motor_control" type="motor_control_rviz.py" output="screen" />
+
+  <node name="dummy_joint_angle_pub_node" pkg="paws_motor_control" type="dummy_joint_angle_pub.py" output="screen" />
+</launch>
