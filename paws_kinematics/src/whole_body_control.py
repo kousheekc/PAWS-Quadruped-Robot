@@ -30,8 +30,6 @@ class WholeBodyControl:
         self.lhTlhf = self.vec_to_mat(-fx, fy, fz, 0, 0, 0)
         self.rhTrhf = self.vec_to_mat(fx, fy, fz, 0, 0, 0)
 
-        self.rate = rospy.Rate(100)
-
     def vec_to_mat(self, x, y, z, R, P, Y):
         mat = np.eye(4)
         mat[:3, :3] = Rotation.from_euler("xyz", [R, P, Y], degrees=True).as_matrix()
@@ -41,15 +39,10 @@ class WholeBodyControl:
         return mat
 
     def mat_to_msg(self, mat):
-        quat = Rotation.from_matrix(mat[:3, :3]).as_quat()
-        msg = Pose()
-        msg.position.x = mat[0, 3]
-        msg.position.y = mat[1, 3]
-        msg.position.z = mat[2, 3]
-        msg.orientation.x = quat[0]
-        msg.orientation.y = quat[1]
-        msg.orientation.z = quat[2]
-        msg.orientation.w = quat[3]
+        msg = Point()
+        msg.x = mat[0, 3]
+        msg.y = mat[1, 3]
+        msg.z = mat[2, 3]
         return msg
 
     def body_pose_callback(self, data):
@@ -73,10 +66,9 @@ class WholeBodyControl:
         self.lh_p_pub.publish(lhfn)
         self.rh_p_pub.publish(rhfn)
 
-        self.rate.sleep()
 
 if __name__ == '__main__':
-    wbc = WholeBodyControl()
+    wbc = WholeBodyControl(0.08, 0.2, 0.038, -0.12, 0)
 
     try:
         while not rospy.is_shutdown():

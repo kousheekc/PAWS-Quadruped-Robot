@@ -113,7 +113,6 @@ class FrameBroadcast:
         lhTlhf = self.vec_to_mat(self.lh[0], self.lh[1], self.lh[2], 0, 0, 0)
         rhTrhf = self.vec_to_mat(self.rh[0], self.rh[1], self.rh[2], 0, 0, 0)
 
-   
         lfnTlffn = np.linalg.inv(bTlf) @ np.linalg.inv(wTb) @ bTlf @ lfTlff
         rfnTrffn = np.linalg.inv(bTrf) @ np.linalg.inv(wTb) @ bTrf @ rfTrff
         lhnTlhfn = np.linalg.inv(bTlh) @ np.linalg.inv(wTb) @ bTlh @ lhTlhf

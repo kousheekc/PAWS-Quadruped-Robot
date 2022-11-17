@@ -161,7 +161,9 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
   src/inverse_kinematics.py
+  src/whole_body_control.py
   src/dummy_foot_pose_pub.py
+  src/dummy_body_pose_pub.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

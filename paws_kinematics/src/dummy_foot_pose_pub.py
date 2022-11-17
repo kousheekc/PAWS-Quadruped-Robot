@@ -3,7 +3,7 @@ import rospy
 from geometry_msgs.msg import Point
 
 if __name__ == '__main__':
-    rospy.init_node('dummy_joint_angle_pub_node', anonymous=True)
+    rospy.init_node('dummy_foot_pose_pub_node', anonymous=True)
 
     lf_p_pub = rospy.Publisher("/foot/pose_rel/lf", Point, queue_size=1)
     rf_p_pub = rospy.Publisher("/foot/pose_rel/rf", Point, queue_size=1)
