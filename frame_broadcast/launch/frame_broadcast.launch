@@ -7,7 +7,7 @@
   
   <node name="inverse_kinematics_node" pkg="paws_kinematics" type="inverse_kinematics.py" output="screen" />
 
-  <node name="dummy_foot_pose_pub_node" pkg="paws_kinematics" type="dummy_foot_pose_pub.py" output="screen" />
+  <!-- <node name="dummy_foot_pose_pub_node" pkg="paws_kinematics" type="dummy_foot_pose_pub.py" output="screen" /> -->
 
   <node name="frame_broadcast_node" pkg="frame_broadcast" type="frame_broadcast.py" output="screen" />
 

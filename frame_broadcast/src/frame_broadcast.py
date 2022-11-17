@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import rospy
-from geometry_msgs.msg import TransformStamped
+from geometry_msgs.msg import TransformStamped, Point
 import tf2_ros
 import tf_conversions
 import numpy as np
@@ -9,6 +9,11 @@ from scipy.spatial.transform import Rotation
 class FrameBroadcast:
     def __init__(self):
         rospy.init_node('frame_broadcast_node', anonymous=True)
+
+        self.lf_p_pub = rospy.Publisher("/foot/pose_rel/lf", Point, queue_size=1)
+        self.rf_p_pub = rospy.Publisher("/foot/pose_rel/rf", Point, queue_size=1)
+        self.lh_p_pub = rospy.Publisher("/foot/pose_rel/lh", Point, queue_size=1)
+        self.rh_p_pub = rospy.Publisher("/foot/pose_rel/rh", Point, queue_size=1)
 
         self.x = 0
         self.y = 0
@@ -26,6 +31,7 @@ class FrameBroadcast:
         self.rh = [0.038, -0.12, 0]
 
         self.br = tf2_ros.TransformBroadcaster()
+        self.rate = rospy.Rate(100)
        
     def vec_to_mat(self, x, y, z, R, P, Y):
         mat = np.eye(4)
@@ -52,6 +58,13 @@ class FrameBroadcast:
     # def mat_to_vec(self, mat):
     #     eul = tf_conversions.transformations.euler_from_matrix(mat)
     #     return [mat[0, 3], mat[1, 3], mat[2, 3], np.rad2deg(eul[0]), np.rad2deg(eul[1]), np.rad2deg(eul[2])]
+
+    def vec_to_msg(self, vec):
+        msg = Point()
+        msg.x = vec[0]
+        msg.y = vec[1]
+        msg.z = vec[2]
+        return msg
 
     def publish(self, parent, child, x, y, z, R, P, Y):
         R_rad = np.deg2rad(R)
@@ -123,6 +136,17 @@ class FrameBroadcast:
         self.publish("lhn", "lhfn", lhfn[0], lhfn[1], lhfn[2], lhfn[3], lhfn[4], lhfn[5])
         self.publish("rhn", "rhfn", rhfn[0], rhfn[1], rhfn[2], rhfn[3], rhfn[4], rhfn[5])
 
+        lf_msg = self.vec_to_msg(lffn)
+        rf_msg = self.vec_to_msg(rffn)
+        lh_msg = self.vec_to_msg(lhfn)
+        rh_msg = self.vec_to_msg(rhfn)
+
+        self.lf_p_pub.publish(lf_msg)
+        self.rf_p_pub.publish(rf_msg)
+        self.lh_p_pub.publish(lh_msg)
+        self.rh_p_pub.publish(rh_msg)
+
+        self.rate.sleep()
 
 if __name__ == '__main__':
     fb = FrameBroadcast()
