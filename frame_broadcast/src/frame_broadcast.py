@@ -15,7 +15,7 @@ class FrameBroadcast:
         self.z = 0
         self.R = 0
         self.P = 0
-        self.Y = 10
+        self.Y = 20
 
         self.l = 0.2
         self.w = 0.08
@@ -26,40 +26,7 @@ class FrameBroadcast:
         self.rh = [0.038, -0.12, 0]
 
         self.br = tf2_ros.TransformBroadcaster()
-
-    def compute(self):
-        wTb = self.vec_to_mat(self.x, self.y, self.z, self.R, self.P, self.Y)
-        
-        bTlf = self.vec_to_mat(self.w/2, -self.l/2, 0, 90, 0, 0)
-        bTrf = self.vec_to_mat(-self.w/2, -self.l/2, 0, 90, 0, 0)
-        bTlh = self.vec_to_mat(self.w/2, self.l/2, -90, 180, 0, 0)
-        bTrh = self.vec_to_mat(-self.w/2, self.l/2, -90, 180, 0, 0)
-        
-        lfTlff = self.vec_to_mat(self.lf[0], self.lf[1], self.lf[2], 0, 0, 0)
-        rfTrff = self.vec_to_mat(self.rf[0], self.rf[1], self.rf[2], 0, 0, 0)
-        lhTlhf = self.vec_to_mat(self.lh[0], self.lh[1], self.lh[2], 0, 0, 0)
-        rhTrhf = self.vec_to_mat(self.rh[0], self.rh[1], self.rh[2], 0, 0, 0)
-
-        lfnTlffn = np.dot(np.linalg.inv(bTlf), np.dot(np.linalg.inv(wTb), np.dot(bTlf, lfTlff)))
-        rfnTrffn = np.dot(np.linalg.inv(bTrf), np.dot(np.linalg.inv(wTb), np.dot(bTrf, rfTrff)))
-        lhnTlhfn = np.dot(np.linalg.inv(bTlh), np.dot(np.linalg.inv(wTb), np.dot(bTlh, lhTlhf)))
-        rhnTrhfn = np.dot(np.linalg.inv(bTrh), np.dot(np.linalg.inv(wTb), np.dot(bTrh, rhTrhf)))
-
-        lffn_eul = Rotation.from_matrix(lfnTlffn[:3, :3]).as_euler('xyz', degrees=True)
-        rffn_eul = Rotation.from_matrix(rfnTrffn[:3, :3]).as_euler('xyz', degrees=True)
-        lhfn_eul = Rotation.from_matrix(lhnTlhfn[:3, :3]).as_euler('xyz', degrees=True)
-        rhfn_eul = Rotation.from_matrix(rhnTrhfn[:3, :3]).as_euler('xyz', degrees=True)
-
-        self.publish("base_link", "basen", self.x, self.y, self.z + 0.16, self.R, self.P, self.Y)
-        self.publish("basen", "lfn", self.w/2, -self.l/2, 0, 90, 0, 0)
-        self.publish("basen", "rfn", -self.w/2, -self.l/2, 0, 90, 0, 0)
-        self.publish("basen", "lhn", self.w/2, self.l/2, 0, -90, 180, 0)
-        self.publish("basen", "rhn", -self.w/2, self.l/2, 0, -90, 180, 0)
-        self.publish("lfn", "lffn", lfnTlffn[0, 3], lfnTlffn[1, 3], lfnTlffn[2, 3], lffn_eul[0], lffn_eul[1], lffn_eul[2])
-        self.publish("rfn", "rffn", rfnTrffn[0, 3], rfnTrffn[1, 3], rfnTrffn[2, 3], rffn_eul[0], rffn_eul[1], rffn_eul[2])
-        self.publish("lhn", "lhfn", lhnTlhfn[0, 3], lhnTlhfn[1, 3], lhnTlhfn[2, 3], lhfn_eul[0], lhfn_eul[1], lhfn_eul[2])
-        self.publish("rhn", "rhfn", rhnTrhfn[0, 3], rhnTrhfn[1, 3], rhnTrhfn[2, 3], rhfn_eul[0], rhfn_eul[1], rhfn_eul[2])
-
+       
     def vec_to_mat(self, x, y, z, R, P, Y):
         mat = np.eye(4)
         mat[:3, :3] = Rotation.from_euler("xyz", [R, P, Y], degrees=True).as_matrix()
@@ -67,6 +34,24 @@ class FrameBroadcast:
         mat[1, 3] = y
         mat[2, 3] = z
         return mat
+
+    # def vec_to_mat(self, x, y, z, R, P, Y):
+    #     R_rad = np.deg2rad(R)
+    #     P_rad = np.deg2rad(P)
+    #     Y_rad = np.deg2rad(Y)
+    #     mat = tf_conversions.transformations.euler_matrix(R_rad, P_rad, Y_rad)
+    #     mat[0, 3] = x
+    #     mat[1, 3] = y
+    #     mat[2, 3] = z
+    #     return mat
+
+    def mat_to_vec(self, mat):
+        eul = Rotation.from_matrix(mat[:3, :3]).as_euler('xyz', degrees=True)
+        return [mat[0, 3], mat[1, 3], mat[2, 3], eul[0], eul[1], eul[2]]
+
+    # def mat_to_vec(self, mat):
+    #     eul = tf_conversions.transformations.euler_from_matrix(mat)
+    #     return [mat[0, 3], mat[1, 3], mat[2, 3], np.rad2deg(eul[0]), np.rad2deg(eul[1]), np.rad2deg(eul[2])]
 
     def publish(self, parent, child, x, y, z, R, P, Y):
         R_rad = np.deg2rad(R)
@@ -90,14 +75,53 @@ class FrameBroadcast:
 
     def static(self):
         self.publish("base_link", "base", 0, 0, 0.16, 0, 0, 0)
+        
         self.publish("base", "lf", self.w/2, -self.l/2, 0, 90, 0, 0)
         self.publish("base", "rf", -self.w/2, -self.l/2, 0, 90, 0, 0)
         self.publish("base", "lh", self.w/2, self.l/2, 0, -90, 180, 0)
         self.publish("base", "rh", -self.w/2, self.l/2, 0, -90, 180, 0)
+        
         self.publish("lf", "lff", self.lf[0], self.lf[1], self.lf[2], 0, 0, 0)
         self.publish("rf", "rff", self.rf[0], self.rf[1], self.rf[2], 0, 0, 0)
         self.publish("lh", "lhf", self.lh[0], self.lh[1], self.lh[2], 0, 0, 0)
         self.publish("rh", "rhf", self.rh[0], self.rh[1], self.rh[2], 0, 0, 0)
+
+
+    def move(self):
+        wTb = self.vec_to_mat(self.x, self.y, self.z, self.R, self.P, self.Y)
+
+        bTlf = self.vec_to_mat(self.w/2, -self.l/2, 0, 90, 0, 0)
+        bTrf = self.vec_to_mat(-self.w/2, -self.l/2, 0, 90, 0, 0)
+        bTlh = self.vec_to_mat(self.w/2, self.l/2, 0, -90, 180, 0)
+        bTrh = self.vec_to_mat(-self.w/2, self.l/2, 0, -90, 180, 0)
+        
+        lfTlff = self.vec_to_mat(self.lf[0], self.lf[1], self.lf[2], 0, 0, 0)
+        rfTrff = self.vec_to_mat(self.rf[0], self.rf[1], self.rf[2], 0, 0, 0)
+        lhTlhf = self.vec_to_mat(self.lh[0], self.lh[1], self.lh[2], 0, 0, 0)
+        rhTrhf = self.vec_to_mat(self.rh[0], self.rh[1], self.rh[2], 0, 0, 0)
+
+   
+        lfnTlffn = np.linalg.inv(bTlf) @ np.linalg.inv(wTb) @ bTlf @ lfTlff
+        rfnTrffn = np.linalg.inv(bTrf) @ np.linalg.inv(wTb) @ bTrf @ rfTrff
+        lhnTlhfn = np.linalg.inv(bTlh) @ np.linalg.inv(wTb) @ bTlh @ lhTlhf
+        rhnTrhfn = np.linalg.inv(bTrh) @ np.linalg.inv(wTb) @ bTrh @ rhTrhf
+
+        lffn = self.mat_to_vec(lfnTlffn)
+        rffn = self.mat_to_vec(rfnTrffn)
+        lhfn = self.mat_to_vec(lhnTlhfn)
+        rhfn = self.mat_to_vec(rhnTrhfn)
+
+        self.publish("base_link", "basen", self.x, self.y, self.z + 0.16, self.R, self.P, self.Y)
+        
+        self.publish("basen", "lfn", self.w/2, -self.l/2, 0, 90, 0, 0)
+        self.publish("basen", "rfn", -self.w/2, -self.l/2, 0, 90, 0, 0)
+        self.publish("basen", "lhn", self.w/2, self.l/2, 0, -90, 180, 0)
+        self.publish("basen", "rhn", -self.w/2, self.l/2, 0, -90, 180, 0)
+        
+        self.publish("lfn", "lffn", lffn[0], lffn[1], lffn[2], lffn[3], lffn[4], lffn[5])
+        self.publish("rfn", "rffn", rffn[0], rffn[1], rffn[2], rffn[3], rffn[4], rffn[5])
+        self.publish("lhn", "lhfn", lhfn[0], lhfn[1], lhfn[2], lhfn[3], lhfn[4], lhfn[5])
+        self.publish("rhn", "rhfn", rhfn[0], rhfn[1], rhfn[2], rhfn[3], rhfn[4], rhfn[5])
 
 
 if __name__ == '__main__':
@@ -106,7 +130,7 @@ if __name__ == '__main__':
     try:
         while not rospy.is_shutdown():
             fb.static()
-            fb.compute()
+            fb.move()
 
     except rospy.ROSInterruptException:
         pass

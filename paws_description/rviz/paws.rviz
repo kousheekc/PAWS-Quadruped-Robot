@@ -57,83 +57,18 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_link:
-          Alpha: 0.6000000238418579
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lf_link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lf_link2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lf_link3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lh_link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lh_link2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lh_link3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rf_link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rf_link2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rf_link3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rh_link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rh_link2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rh_link3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
     - Class: rviz/TF
       Enabled: true
@@ -143,6 +78,8 @@ Visualization Manager:
         base:
           Value: true
         base_link:
+          Value: true
+        basen:
           Value: true
         lf:
           Value: true
@@ -154,6 +91,10 @@ Visualization Manager:
           Value: false
         lff:
           Value: true
+        lffn:
+          Value: true
+        lfn:
+          Value: true
         lh:
           Value: true
         lh_link1:
@@ -163,6 +104,10 @@ Visualization Manager:
         lh_link3:
           Value: false
         lhf:
+          Value: true
+        lhfn:
+          Value: true
+        lhn:
           Value: true
         rf:
           Value: true
@@ -174,6 +119,10 @@ Visualization Manager:
           Value: false
         rff:
           Value: true
+        rffn:
+          Value: true
+        rfn:
+          Value: true
         rh:
           Value: true
         rh_link1:
@@ -183,6 +132,10 @@ Visualization Manager:
         rh_link3:
           Value: false
         rhf:
+          Value: true
+        rhfn:
+          Value: true
+        rhn:
           Value: true
       Marker Alpha: 1
       Marker Scale: 0.15000000596046448
@@ -204,6 +157,19 @@ Visualization Manager:
                 {}
             rh:
               rhf:
+                {}
+          basen:
+            lfn:
+              lffn:
+                {}
+            lhn:
+              lhfn:
+                {}
+            rfn:
+              rffn:
+                {}
+            rhn:
+              rhfn:
                 {}
           lf_link1:
             lf_link2:
@@ -267,9 +233,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5353987812995911
+      Pitch: 0.7953985333442688
       Target Frame: <Fixed Frame>
-      Yaw: 5.5493035316467285
+      Yaw: 1.2961176633834839
     Saved: ~
 Window Geometry:
   Displays:
