@@ -13,6 +13,11 @@ class WholeBodyControl:
         self.lh_p_pub = rospy.Publisher("/foot/pose_rel/lh", Point, queue_size=1)
         self.rh_p_pub = rospy.Publisher("/foot/pose_rel/rh", Point, queue_size=1)
         
+        self.lf_p_sub = rospy.Subscriber("/foot/pose_abs/lf", Point, self.lf_p_callback)
+        self.rf_p_sub = rospy.Subscriber("/foot/pose_abs/rf", Point, self.rf_p_callback)
+        self.lh_p_sub = rospy.Subscriber("/foot/pose_abs/lh", Point, self.lh_p_callback)
+        self.rh_p_sub = rospy.Subscriber("/foot/pose_abs/rh", Point, self.rh_p_callback)     
+
         self.body_p_sub = rospy.Subscriber("/body", Pose, self.body_pose_callback)
 
         self.bTlf = self.vec_to_mat(w/2, -l/2, 0, 90, 0, 0)
@@ -45,6 +50,26 @@ class WholeBodyControl:
         msg.z = mat[2, 3]
         return msg
 
+    def lf_p_callback(self, data):
+        self.lfTlff[0, 3] += data.x
+        self.lfTlff[1, 3] += data.y
+        self.lfTlff[2, 3] += data.z        
+
+    def rf_p_callback(self, data):
+        self.rfTrff[0, 3] += data.x
+        self.rfTrff[1, 3] += data.y
+        self.rfTrff[2, 3] += data.z  
+
+    def lh_p_callback(self, data):
+        self.lhTlhf[0, 3] += data.x
+        self.lhTlhf[1, 3] += data.y
+        self.lhTlhf[2, 3] += data.z  
+
+    def rh_p_callback(self, data):
+        self.rhTrhf[0, 3] += data.x
+        self.rhTrhf[1, 3] += data.y
+        self.rhTrhf[2, 3] += data.z  
+
     def body_pose_callback(self, data):
         eul = Rotation.from_quat([data.orientation.x, data.orientation.y, data.orientation.z, data.orientation.w]).as_euler('xyz', degrees=True)
         
@@ -55,6 +80,11 @@ class WholeBodyControl:
         rfnTrffn = self.bTrf_inv @ wTb_inv @ self.bTrf @ self.rfTrff
         lhnTlhfn = self.bTlh_inv @ wTb_inv @ self.bTlh @ self.lhTlhf
         rhnTrhfn = self.bTrh_inv @ wTb_inv @ self.bTrh @ self.rhTrhf
+
+        self.lfTlff = lfnTlffn 
+        self.rfTrff = rfnTrffn
+        self.lhTlhf = lhnTlhfn
+        self.rhTrhf = rhnTrhfn
 
         lffn = self.mat_to_msg(lfnTlffn)
         rffn = self.mat_to_msg(rfnTrffn)
