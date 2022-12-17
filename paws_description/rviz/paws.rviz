@@ -137,14 +137,12 @@ Visualization Manager:
       Visual Enabled: true
     - Class: rviz/TF
       Enabled: true
-      Frame Timeout: 15
+      Frame Timeout: 1000
       Frames:
         All Enabled: false
         base:
           Value: true
         base_link:
-          Value: true
-        basen:
           Value: true
         lf:
           Value: true
@@ -156,10 +154,6 @@ Visualization Manager:
           Value: false
         lff:
           Value: true
-        lffn:
-          Value: true
-        lfn:
-          Value: true
         lh:
           Value: true
         lh_link1:
@@ -169,10 +163,6 @@ Visualization Manager:
         lh_link3:
           Value: false
         lhf:
-          Value: true
-        lhfn:
-          Value: true
-        lhn:
           Value: true
         rf:
           Value: true
@@ -184,10 +174,6 @@ Visualization Manager:
           Value: false
         rff:
           Value: true
-        rffn:
-          Value: true
-        rfn:
-          Value: true
         rh:
           Value: true
         rh_link1:
@@ -197,10 +183,6 @@ Visualization Manager:
         rh_link3:
           Value: false
         rhf:
-          Value: true
-        rhfn:
-          Value: true
-        rhn:
           Value: true
       Marker Alpha: 1
       Marker Scale: 0.15000000596046448
@@ -222,19 +204,6 @@ Visualization Manager:
                 {}
             rh:
               rhf:
-                {}
-          basen:
-            lfn:
-              lffn:
-                {}
-            lhn:
-              lhfn:
-                {}
-            rfn:
-              rffn:
-                {}
-            rhn:
-              rhfn:
                 {}
           lf_link1:
             lf_link2:
@@ -298,9 +267,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5253989696502686
+      Pitch: 0.5203986763954163
       Target Frame: <Fixed Frame>
-      Yaw: 0.021137911826372147
+      Yaw: 3.524308681488037
     Saved: ~
 Window Geometry:
   Displays:
