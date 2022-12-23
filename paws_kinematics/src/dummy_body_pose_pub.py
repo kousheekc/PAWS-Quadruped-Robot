@@ -2,7 +2,6 @@
 import rospy
 from geometry_msgs.msg import Pose, Point
 from scipy.spatial.transform import Rotation
-from paws_kinematics.msg import Phase
 
 def generate_pose_msg(x, y, z, R, P, Y):
     msg = Pose()

@@ -24,5 +24,6 @@ catkin_install_python(PROGRAMS
   src/dummy_body_pose_pub.py
   src/dummy_phase_pub.py
   src/paws_node.py
+  src/paws_node_copy.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
