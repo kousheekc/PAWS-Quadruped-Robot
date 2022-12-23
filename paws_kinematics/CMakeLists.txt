@@ -7,22 +7,10 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   tf2
   tf2_ros
-  message_generation
-)
-
-add_message_files(
-  FILES
-  Phase.msg
-  Joints.msg
-)
-
-generate_messages(
-  DEPENDENCIES
-  geometry_msgs
 )
 
 catkin_package(
-  CATKIN_DEPENDS message_runtime
+
 )
 
 include_directories(

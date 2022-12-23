@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import rospy
 from scipy.spatial.transform import Rotation
-from paws_kinematics.msg import Phase
+from paws_description.msg import Phase
 
 if __name__ == '__main__':
     rospy.init_node('dummy_phase_pub_node', anonymous=True)
