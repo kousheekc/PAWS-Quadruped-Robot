@@ -2,6 +2,7 @@
 import rospy
 from geometry_msgs.msg import Pose, Point
 from scipy.spatial.transform import Rotation
+from paws_kinematics.msg import Phase
 
 def generate_pose_msg(x, y, z, R, P, Y):
     msg = Pose()
@@ -32,33 +33,6 @@ if __name__ == '__main__':
     rh_p_pub = rospy.Publisher("/foot/pose_rel/rh", Point, queue_size=1)
   
     rate = rospy.Rate(5)
-
-    body_x = 0
-    body_y = 0
-    body_z = 0
-    body_R = 0
-    body_P = 0
-    body_Y = 0
-
-    lf_fx = 0
-    lf_fy = 0
-    lf_fz = 0
-
-    lf_fdx = 0
-    lf_fdy = 0
-    lf_fdz = 0
-
-    rf_fx = 0
-    rf_fy = 0
-    rf_fz = 0
-
-    lh_fx = 0
-    lh_fy = 0
-    lh_fz = 0
-
-    rh_fx = 0
-    rh_fy = 0
-    rh_fz = 0
 
     counter = 0
 
