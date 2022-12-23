@@ -3,7 +3,6 @@ import rospy
 import numpy as np
 from geometry_msgs.msg import Pose, Point, TransformStamped
 import tf2_ros
-import tf_conversions
 from scipy.spatial.transform import Rotation
 
 class WholeBodyControl:
