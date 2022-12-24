@@ -5,8 +5,7 @@
   <node name="motor_control_gazebo_node" pkg="paws_motor_control" type="motor_control_gazebo.py" output="screen" />
   <!-- <node name="motor_control_rviz_node" pkg="paws_motor_control" type="motor_control_rviz.py" output="screen" /> -->
   
-  <node name="inverse_kinematics_node" pkg="paws_kinematics" type="inverse_kinematics.py" output="screen" />
   <node name="whole_body_control_node" pkg="paws_kinematics" type="whole_body_control.py" output="screen" />
 
-  <node name="dummy_body_pose_pub_node" pkg="paws_kinematics" type="dummy_body_pose_pub.py" output="screen" />
+  <node name="dummy_phase_pub_node" pkg="paws_kinematics" type="dummy_phase_pub.py" output="screen" />
 </launch>

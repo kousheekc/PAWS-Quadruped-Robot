@@ -38,15 +38,15 @@ if __name__ == '__main__':
 
     phase_pub = rospy.Publisher("/phase", Phase, queue_size=1)
 
-    rate = rospy.Rate(100)
+    rate = rospy.Rate(50)
 
     count = 0
 
     try:
         while not rospy.is_shutdown():
-            if count <= 100:
+            if count <= 1000:
                 rospy.loginfo("looped")
-                msg = generate_phase_msg([0, 0.001, 0, 0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+                msg = generate_phase_msg([0, 0, 0, 0, 0, ], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
                 phase_pub.publish(msg)
                 count += 1
             rate.sleep()
