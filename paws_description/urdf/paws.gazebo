@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="5.0"?>
 <robot name="paws" xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
   <!-- ros_control plugin -->
@@ -13,8 +13,8 @@
 
   <gazebo reference="base_link">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -24,8 +24,8 @@
 
   <gazebo reference="lf_link1">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -35,8 +35,8 @@
 
   <gazebo reference="lf_link2">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -46,8 +46,8 @@
 
   <gazebo reference="lf_link3">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -57,8 +57,8 @@
 
   <gazebo reference="rf_link1">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -68,8 +68,8 @@
 
   <gazebo reference="rf_link2">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -79,8 +79,8 @@
 
   <gazebo reference="rf_link3">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -90,8 +90,8 @@
 
   <gazebo reference="lh_link1">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -101,8 +101,8 @@
 
   <gazebo reference="lh_link2">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -112,8 +112,8 @@
 
   <gazebo reference="lh_link3">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -123,8 +123,8 @@
 
   <gazebo reference="rh_link1">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -134,8 +134,8 @@
 
   <gazebo reference="rh_link2">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>
@@ -145,8 +145,8 @@
 
   <gazebo reference="rh_link3">
     <material>${body_color}</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
     <selfCollide>true</selfCollide>
     <gravity>true</gravity>
     <fdir1>1 0 0</fdir1>

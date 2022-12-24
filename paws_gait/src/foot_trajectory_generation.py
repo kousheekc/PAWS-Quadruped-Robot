@@ -2,6 +2,7 @@ import rospy
 import numpy as np
 from scipy.spatial.transform import Rotation
 from paws_description.msg import Phase
+import matplotlib.pyplot as plt
 
 class FootTrajectoryGeneration:
     def __init__(self, phase_len, swing_start, swing_len, step_len, step_height, step_angle):
@@ -22,7 +23,7 @@ class FootTrajectoryGeneration:
         swing_stance_state = [0, 0, 0, 0]
         time = time % self.phase_len
         for i in range(4):
-            if self.swing_start[i]/100*self.phase_len < time < self.swing_start[i]/100*self.phase_len + self.swing_len[i]/100*self.phase_len:
+            if self.swing_start[i]/100*self.phase_len <= time <= self.swing_start[i]/100*self.phase_len + self.swing_len[i]/100*self.phase_len:
                 swing_stance_state[i] = 1
             else:
                 swing_stance_state[i] = 0
@@ -31,17 +32,22 @@ class FootTrajectoryGeneration:
 
     def get_foot_displacements(self, time, swing_stance_state):
         foot_displacements = np.zeros((4, 4))
+        time = time % self.phase_len
         for i in range(4):
             if swing_stance_state[i] == 1:
+                if self.swing_start[i]/100*self.phase_len < time < self.swing_start[i]/100*self.phase_len + (self.swing_len[i]/100*self.phase_len)/2:
+                    foot_displacements[i][1] = 0.0001
+                elif self.swing_start[i]/100*self.phase_len + (self.swing_len[i]/100*self.phase_len)/2 <= time <= self.swing_start[i]/100*self.phase_len + self.swing_len[i]/100*self.phase_len:
+                    foot_displacements[i][1] = -0.0001
                 if i == 0 or i == 1:
-                    foot_displacements[i][2] = 0.0014
+                    foot_displacements[i][2] = 0.00028
                 else:
-                    foot_displacements[i][2] = -0.0014
+                    foot_displacements[i][2] = -0.00028
             elif swing_stance_state[i] == 0:
                 if i == 0 or i == 1:
-                    foot_displacements[i][2] = -0.0002
+                    foot_displacements[i][2] = -0.00004
                 else:
-                    foot_displacements[i][2] = 0.0002
+                    foot_displacements[i][2] = 0.00004
 
         return foot_displacements
 
@@ -85,14 +91,18 @@ class FootTrajectoryGeneration:
 if __name__ == '__main__':
     ftg = FootTrajectoryGeneration(2, [62.5, 12.5, 37.5, 87.5], [12.5, 12.5, 12.5, 12.5], 0.2, 0.2, 0)
 
-    rate = rospy.Rate(100)
+    rate = rospy.Rate(1000)
     start_time = rospy.get_time()
+
+    init_time = 10
 
     try:
         while not rospy.is_shutdown():
             time = rospy.get_time() - start_time
-            rospy.loginfo(ftg.publish(time))
+            if time > init_time:
+                rospy.loginfo(ftg.publish(time))
             rate.sleep()
+        
 
     except rospy.ROSInterruptException:
         pass

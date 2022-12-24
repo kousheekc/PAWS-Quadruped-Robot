@@ -292,7 +292,7 @@
     <parent link="base_link"/>
     <child link="lf_link1"/>
     <axis xyz="0.0 1.0 0.0"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <joint name="lf_j2" type="continuous">
@@ -300,7 +300,7 @@
     <parent link="lf_link1"/>
     <child link="lf_link2"/>
     <axis xyz="-1.0 0.0 0.0"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <joint name="lf_j3" type="continuous">
@@ -316,7 +316,7 @@
     <parent link="base_link"/>
     <child link="rf_link1"/>
     <axis xyz="0.0 1.0 0.0"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <joint name="rf_j2" type="continuous">
@@ -324,7 +324,7 @@
     <parent link="rf_link1"/>
     <child link="rf_link2"/>
     <axis xyz="1.0 -0.0 -0.0"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <joint name="rf_j3" type="continuous">
@@ -340,7 +340,7 @@
     <parent link="base_link"/>
     <child link="lh_link1"/>
     <axis xyz="0.0 -1.0 -0.0"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <joint name="lh_j2" type="continuous">
@@ -348,7 +348,7 @@
     <parent link="lh_link1"/>
     <child link="lh_link2"/>
     <axis xyz="-1.0 -0.0 0.0"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <joint name="lh_j3" type="continuous">
@@ -364,7 +364,7 @@
     <parent link="base_link"/>
     <child link="rh_link1"/>
     <axis xyz="0.0 -1.0 -0.0"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <joint name="rh_j2" type="continuous">
@@ -372,7 +372,7 @@
     <parent link="rh_link1"/>
     <child link="rh_link2"/>
     <axis xyz="1.0 0.0 -0.0"/>
-    <dynamics damping="0.7"/>
+    <dynamics damping="0.2"/>
   </joint>
 
   <joint name="rh_j3" type="continuous">
