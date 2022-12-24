@@ -1,0 +1,11 @@
+<launch>
+  <include file="$(find paws_description)/launch/paws_gazebo.launch"/>
+  <!-- <include file="$(find paws_description)/launch/paws_rviz.launch"/> -->
+
+  <node name="motor_control_gazebo_node" pkg="paws_motor_control" type="motor_control_gazebo.py" output="screen" />
+  <!-- <node name="motor_control_rviz_node" pkg="paws_motor_control" type="motor_control_rviz.py" output="screen" /> -->
+  
+  <node name="whole_body_control_node" pkg="paws_kinematics" type="whole_body_control.py" output="screen" />
+
+  <node name="walk_node" pkg="paws_gait" type="foot_trajectory_generation.py" output="screen" />
+</launch>

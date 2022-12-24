@@ -8,7 +8,7 @@ from scipy.spatial.transform import Rotation
 
 class WholeBodyControl:
     def __init__(self, l1, l2, l3, w, l, fx, fy, fz):
-        rospy.init_node('paws_node', anonymous=True)
+        rospy.init_node('whole_body_control_node', anonymous=True)
 
         self.joints_pub = rospy.Publisher("/joints", Joints, queue_size=1)
         
