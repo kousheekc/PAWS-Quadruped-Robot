@@ -36,19 +36,26 @@ def generate_phase_msg(body, lf, rf, lh, rh):
 if __name__ == '__main__':
     rospy.init_node('dummy_phase_pub_node', anonymous=True)
 
-    phase_pub = rospy.Publisher("/phase", Phase, queue_size=1)
+    phase_pub = rospy.Publisher("/phase", Phase, queue_size=100)
 
-    rate = rospy.Rate(50)
+    rate = rospy.Rate(10)
 
-    count = 0
+    looped_once = False
+    start_time = rospy.get_time()
+    init_duration = 10
 
     try:
         while not rospy.is_shutdown():
-            if count <= 1000:
-                rospy.loginfo("looped")
-                msg = generate_phase_msg([0, 0, 0, 0, 0, ], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+            time = rospy.get_time() - start_time
+            if time < init_duration:
+                rospy.loginfo("looped, not moving")
+                msg = generate_phase_msg([0, 0, 0, 0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
                 phase_pub.publish(msg)
-                count += 1
+            elif time >= init_duration and looped_once == False:
+                rospy.loginfo("looped, moving")
+                msg = generate_phase_msg([0, 0.02, 0, 0, 0, 0], [0, 0.02, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+                phase_pub.publish(msg)
+                looped_once = True
             rate.sleep()
             
     except rospy.ROSInterruptException:

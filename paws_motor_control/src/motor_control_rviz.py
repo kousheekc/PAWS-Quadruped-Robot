@@ -13,6 +13,7 @@ class MotorController:
         self.joints_sub = rospy.Subscriber("/joints", Joints, self.joints_callback)
 
     def joints_callback(self, data):
+        rospy.loginfo("joint callback")
         joints = [data.lf.x, data.lf.y, data.lf.z, data.rf.x, data.rf.y, data.rf.z, data.lh.x, data.lh.y, data.lh.z, data.rh.x, data.rh.y, data.rh.z]
         
         msg = JointState()
