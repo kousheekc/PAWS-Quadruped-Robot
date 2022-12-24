@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import rospy
 from scipy.spatial.transform import Rotation
-from geometry_msgs.msg import Pose, Point
 from paws_description.msg import Phase
 
 def generate_phase_msg(body, lf, rf, lh, rh):
@@ -39,12 +38,17 @@ if __name__ == '__main__':
 
     phase_pub = rospy.Publisher("/phase", Phase, queue_size=1)
 
-    rate = rospy.Rate(5)
+    rate = rospy.Rate(100)
+
+    count = 0
 
     try:
         while not rospy.is_shutdown():
-            msg = generate_phase_msg([0, 0.002, 0, 0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
-            phase_pub.publish(msg)
+            if count <= 100:
+                rospy.loginfo("looped")
+                msg = generate_phase_msg([0, 0.001, 0, 0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0])
+                phase_pub.publish(msg)
+                count += 1
             rate.sleep()
             
     except rospy.ROSInterruptException:
