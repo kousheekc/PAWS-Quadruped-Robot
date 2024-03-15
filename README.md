@@ -3,6 +3,8 @@
 ## About The Project
 ROS driver for a custom built 3D printed quadrupedal robot (named PAWS). This repo contains ROS1 packages for low level motor control, gazebo simuations, whole body kinematics and a basic gait generator.
 
+<img src="docs/walk.gif">
+
 ## Getting Started
 The driver has been tested on Ubuntu 20.04 with ROS2 Noetic.
 
