@@ -6,7 +6,7 @@ ROS driver for a custom built 3D printed quadrupedal robot (named PAWS). This re
 <img src="docs/walk.gif">
 
 ## Getting Started
-The driver has been tested on Ubuntu 20.04 with ROS2 Noetic.
+The driver has been tested on Ubuntu 20.04 with ROS1 Noetic.
 
 ### Prerequisites
 * ROS Noetic
